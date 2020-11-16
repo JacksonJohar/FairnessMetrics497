@@ -1,11 +1,11 @@
 import numpy as np
 import statistics as stat
 
-Rnums = []
-Dwasted = []
-Rwasted = []
-Dfair = []
-Rfair = []
+rNums = []
+dWasted = []
+rWasted = []
+dFair = []
+rFair = []
 totD = 0
 totR = 0
 totDWasted = 0
@@ -19,46 +19,46 @@ bound = .05
 k = -.2
 
 #Generage random normal distributed numbers (mean, std dev, size)
-Dnums = np.random.normal(.5, .05, size=(50))
+dNums = np.random.normal(.5, .05, size=(50))
 
-for d in Dnums:
+for d in dNums:
     totD = totD + d
 
     r = 1 - d
-    Rnums.append(r)
+    rNums.append(r)
     totR = totR + r
 
     if d > .5:
         waste = d - .5
-        Dwasted.append(waste)
+        dWasted.append(waste)
     else:
         waste = d
-        Dwasted.append(waste)
+        dWasted.append(waste)
 
     totDWasted = totDWasted + waste
 
     if r > .5:
         waste = r - .5
-        Rwasted.append(waste)
+        rWasted.append(waste)
     else:
         waste = r
-        Rwasted.append(waste)
+        rWasted.append(waste)
 
     totRWasted = totRWasted + waste
 
 shift = (totD - totR)/100
 
-for d in Dnums:
+for d in dNums:
     fair = d - shift
-    Dfair.append(fair)
+    dFair.append(fair)
     totDFair = totDFair + fair
     if fair > .5:
         totDWon = totDWon + 1
 
 
-for r in Rnums:
+for r in rNums:
     fair = r + shift
-    Rfair.append(fair)
+    rFair.append(fair)
     totRFair = totRFair + fair
     if fair > .5:
         totRWon = totRWon + 1
@@ -73,10 +73,10 @@ print("R Efficiency Gap: " + str(round(rEfficiencyGap, 4)))
 print("")
 
 #Mean Median Difference
-dAverage = stat.mean(Dnums)
-rAverage = stat.mean(Rnums)
-dMedian = stat.median(Dnums)
-rMedian = stat.median(Rnums)
+dAverage = stat.mean(dNums)
+rAverage = stat.mean(rNums)
+dMedian = stat.median(dNums)
+rMedian = stat.median(rNums)
 dMeanMed = dMedian - dAverage
 rMeanMed = rMedian - rAverage
 print("D Mean-Med diff: " + str(round(dMeanMed, 4)))
